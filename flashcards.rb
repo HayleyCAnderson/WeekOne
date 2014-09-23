@@ -66,13 +66,14 @@ class Game
   end
 
   def welcome
-    message = "Welcome to the game!"
+    message = "Welcome to the flash card game!"
     puts message
     puts "-" * message.length
    end
 
   def choose_language
-    puts "(Hit enter if you don't want to try any of the decks.)"
+    puts "(Hit enter if you want to exit.)"
+    puts "Decks:"
     @decks.each do |deck|
       puts deck.name
     end
