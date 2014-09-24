@@ -12,24 +12,25 @@ class Card
     check_answer
   end
 
+  private
+
   def ask_question
-    puts "What is the correct translation of '#{@front}'?"
+    puts "What is the correct translation of '#{front}'?"
     @answer = gets.chomp
   end
 
   def check_answer
-    if @answer.downcase == @back.downcase
+    if @answer.downcase == back.downcase
       puts "That is correct!"
     else
-      puts "Sorry, the correct answer is '#{@back}'."
+      puts "Sorry, the correct answer is '#{back}'."
     end
   end
-
 end
 
 class Deck
 
-  attr_reader :name
+  attr_reader :name, :cards
 
   def initialize(name, cards)
     @name = name
@@ -38,20 +39,24 @@ class Deck
 
   def play
     deck_intro
-    @cards.shuffle.each do |card|
+    cards.shuffle.each do |card|
       card.play
     end
   end
+
+  private
 
   def deck_intro
     puts "-----"
     puts "Here is the #{name} deck:"
     puts "-----"
   end
-
 end
 
 class Game
+
+  attr_reader :decks
+
   def initialize(decks)
     @decks = decks
   end
@@ -65,6 +70,8 @@ class Game
     ending
   end
 
+  private
+
   def welcome
     message = "Welcome to the flash card game!"
     puts message
@@ -74,7 +81,7 @@ class Game
   def choose_language
     puts "(Hit enter if you want to exit.)"
     puts "Decks:"
-    @decks.each do |deck|
+    decks.each do |deck|
       puts deck.name
     end
     puts "Which of the above languages would you like to practice?"
@@ -82,7 +89,7 @@ class Game
   end
 
   def which_deck
-    @decks.each do |deck|
+    decks.each do |deck|
       @language = deck.name
       if @language_choice == @language.downcase
         deck.play
@@ -93,7 +100,6 @@ class Game
   def ending
     puts "Thanks for playing! Keep practicing!"
   end
-
 end
 
 german_cards = [Card.new("ein Hund", "dog")]
