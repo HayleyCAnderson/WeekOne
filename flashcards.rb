@@ -102,21 +102,45 @@ class Game
   end
 end
 
-german_cards = [Card.new("ein Hund", "dog")]
-german_cards << Card.new("eine Frau", "woman")
-german_cards << Card.new("ein Lehrer", "teacher")
+class Reader
 
-spanish_cards = [Card.new("gato", "cat")]
-spanish_cards << Card.new("libro", "book")
-spanish_cards << Card.new("escuela", "school")
+  def initialize(filename)
+    @file = File.open(filename)
+  end
 
-serbian_cards = [Card.new("grad", "city")]
-serbian_cards << Card.new("rečnik", "dictionary")
-serbian_cards << Card.new("mleko", "milk")
+  def decks
+    deck_number = @file.gets.to_i
+    deck_number.times.map do |row|
+      name = @file.gets.chomp
+      cards_number = @file.gets.to_i
+      cards = cards_number.times.map do |row|
+        front = @file.gets.chomp
+        back = @file.gets.chomp
+        card = Card.new(front, back)
+      end
+      deck = Deck.new(name, cards)
+    end
+  end
+end
 
-decks = [Deck.new("German", german_cards)]
-decks << Deck.new("Spanish", spanish_cards)
-decks << Deck.new("Serbian", serbian_cards)
+# german_cards = [Card.new("ein Hund", "dog")]
+# german_cards << Card.new("eine Frau", "woman")
+# german_cards << Card.new("ein Lehrer", "teacher")
+
+# spanish_cards = [Card.new("gato", "cat")]
+# spanish_cards << Card.new("libro", "book")
+# spanish_cards << Card.new("escuela", "school")
+
+# serbian_cards = [Card.new("grad", "city")]
+# serbian_cards << Card.new("rečnik", "dictionary")
+# serbian_cards << Card.new("mleko", "milk")
+
+# decks = [Deck.new("German", german_cards)]
+# decks << Deck.new("Spanish", spanish_cards)
+# decks << Deck.new("Serbian", serbian_cards)
+
+deck_reader = Reader.new("decks")
+decks = deck_reader.decks
 
 game = Game.new(decks)
 game.play
