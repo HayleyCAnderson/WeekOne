@@ -11,6 +11,8 @@ class Lockers
 		results
 	end
 
+	private
+
 	def locker_loop
 
 		@lockers.each do |locker_num|
