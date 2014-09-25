@@ -112,13 +112,17 @@ class Reader
     deck_number = @file.gets.to_i
     deck_number.times.map do |row|
       name = @file.gets.chomp
-      cards_number = @file.gets.to_i
-      cards = cards_number.times.map do |row|
-        front = @file.gets.chomp
-        back = @file.gets.chomp
-        card = Card.new(front, back)
-      end
+      @cards_number = @file.gets.to_i
+      cards = get_cards
       deck = Deck.new(name, cards)
+    end
+  end
+
+  def get_cards
+    @cards_number.times.map do |row|
+      front = @file.gets.chomp
+      back = @file.gets.chomp
+      card = Card.new(front, back)
     end
   end
 end
