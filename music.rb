@@ -15,9 +15,9 @@ class Library
 
 	def get_artists
 		CSV.foreach("music.csv", headers: true) do |row|
-		artist = row["Artist"]
-		song = row["Name"]
-		@library[artist] = []
+			artist = row["Artist"]
+			song = row["Name"]
+			@library[artist] = []
 		end
 	end
 
